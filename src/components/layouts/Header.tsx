@@ -8,7 +8,7 @@ const Header = () => {
       <div className='container mx-auto flex flex-row justify-between items-center'>
         <Link href='/' passHref>
           <a className='flex items-center mb-2 md:mb-0'>
-            <Image src='/cloer-logo-indigo-512x512.png' layout='fixed' width='40' height='40' alt='blog logo' />
+            <Image src='/images/logos/cloer-logo-indigo-512x512.png' layout='fixed' width='40' height='40' alt='blog logo' />
             <h1 className='ml-3 text-xl font-medium'>Seokgyu Choi</h1>
           </a>
         </Link>
