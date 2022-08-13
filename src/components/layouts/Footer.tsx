@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className='flex min-h-20 items-center bg-slate-300'>
-      <div className='container mx-auto flex items-center justify-between'>
+    <footer className='flex min-h-20 items-center bg-slate-300 '>
+      <div className='container-lg-62rem mx-auto flex items-center justify-between flex-col my-2 sm:my-0 sm:flex-row sm:justify-between'>
         <div className='flex items-center'>
           <Link href='/' passHref>
             <a>

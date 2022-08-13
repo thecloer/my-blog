@@ -1,7 +1,7 @@
 import NavButton from './NavButton';
 
 const Nav = () => {
-  const navList = ['portfolio', 'projects', 'blog', 'resume'];
+  const navList = ['portfolio', 'project', 'blog', 'resume'];
   return (
     <nav className='flex'>
       {navList.map((navText, i) => (
