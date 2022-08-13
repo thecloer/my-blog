@@ -10,7 +10,7 @@ interface Props {
 
 const PostItem: FC<Props> = ({ postInfo: { slug, frontMatter } }) => {
   return (
-    <div className='flex py-8 md:flex-row flex-col'>
+    <article className='flex py-8 md:flex-row flex-col'>
       <div className='flex flex-col items-center'>
         <Link href={`/blog/${slug}`} passHref>
           <div
@@ -54,7 +54,7 @@ const PostItem: FC<Props> = ({ postInfo: { slug, frontMatter } }) => {
 
         <span className='text-sm'>{frontMatter.date}</span>
       </div>
-    </div>
+    </article>
   );
 };
 
