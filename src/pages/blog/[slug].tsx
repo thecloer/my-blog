@@ -2,10 +2,12 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 import type { PostFrontMatter } from '@/types/data';
 import { readdirSync, readFileSync } from 'fs';
+import Link from 'next/link';
 import { join } from 'path';
-import matter from 'gray-matter';
 import { marked } from 'marked';
+import matter from 'gray-matter';
 import { BLOG_DATA_PATH } from '@/config';
+import TagButton from '@/components/common/TagButton';
 
 interface Props {
   slug: string;
@@ -18,10 +20,28 @@ interface Params extends ParsedUrlQuery {
 }
 
 const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
+  const { title, series, tags, date } = frontMatter;
+  const formattedDate = new Date(date).toDateString();
   return (
     <div className='container-lg-62rem mx-auto px-8 md:px-0'>
-      <main className='flex py-24 justify-center'>
-        <div dangerouslySetInnerHTML={{ __html: marked(content) }} className='prose' />
+      <main className='py-24'>
+        <section className='mx-auto max-w-[65ch]'>
+          <div className='mb-20 pb-4 border-b-2'>
+            {series === null || (
+              <Link href={`/blog/series/${series.toLowerCase().replaceAll(' ', '-')}`} passHref>
+                <a className='text-lg font-semibold text-slate-600 cursor-pointer hover:underline mb-2 block'>{series}</a>
+              </Link>
+            )}
+            <h1 className='font-extrabold text-4xl mb-4'>{title}</h1>
+            <span className='block mb-2'>{formattedDate}</span>
+            <div className='flex flex-wrap '>
+              {frontMatter.tags.map((tag, i) => (
+                <TagButton key={i} tag={tag} className='transition-shadow hover:shadow-none shadow-lg' />
+              ))}
+            </div>
+          </div>
+          <article dangerouslySetInnerHTML={{ __html: marked(content) }} className='prose' />
+        </section>
       </main>
     </div>
   );
