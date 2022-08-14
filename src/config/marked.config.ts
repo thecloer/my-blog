@@ -3,11 +3,18 @@ import { marked } from 'marked';
 import hljs from 'highlight.js/lib/core';
 
 /**
- * highlightjs API Docs
+ * - highlightjs API Docs
  * https://highlightjs.readthedocs.io/en/latest/api.html
  *
- * marked API Docs
+ * - marked API Docs
  * https://marked.js.org/using_advanced
+ * https://marked.js.org/using_pro#extensions
+ *
+ * - marked markdown spec
+ * https://spec.commonmark.org/0.30/
+ *
+ * - tailwind configuration reference
+ * https://tailwindcss.com/docs/theme#configuration-reference
  */
 
 const markedConfig = () => {
