@@ -43,7 +43,6 @@ const markedConfig = () => {
   for (const [lan, lanFn] of languages) {
     hljs.registerLanguage(lan, lanFn);
   }
-  console.log(hljs.listLanguages());
   marked.setOptions({
     highlight: function (code, language) {
       return languages.has(language) ? hljs.highlight(code, { language }).value : hljs.highlightAuto(code).value;
