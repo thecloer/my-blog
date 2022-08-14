@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @import 'vs2015.css'; */
+/* @import 'tokyo-night-dark.css'; */
+@import 'tomorrow-night.css';
+
 @layer base {
   html {
     font-family: 'Inter', 'menlo', 'sans-serif';

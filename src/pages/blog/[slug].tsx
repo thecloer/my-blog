@@ -4,10 +4,10 @@ import type { PostFrontMatter } from '@/types/data';
 import { readdirSync, readFileSync } from 'fs';
 import Link from 'next/link';
 import { join } from 'path';
-import { marked } from 'marked';
 import matter from 'gray-matter';
 import { BLOG_DATA_PATH } from '@/config';
 import TagButton from '@/components/common/TagButton';
+import { customMarked } from '@/config/marked.config';
 
 interface Props {
   slug: string;
@@ -40,7 +40,7 @@ const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
               ))}
             </div>
           </div>
-          <article dangerouslySetInnerHTML={{ __html: marked(content) }} className='prose' />
+          <article dangerouslySetInnerHTML={{ __html: customMarked(content) }} className='prose' />
         </section>
       </main>
     </div>
