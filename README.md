@@ -1,1 +1,7 @@
-# My Blog using Nextjs + MDX
+# My Blog
+
+## using
+
+- Nextjs
+- typescript
+- markdown()
