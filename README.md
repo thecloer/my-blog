@@ -4,4 +4,4 @@
 
 - Nextjs
 - typescript
-- markdown()
+- marked
