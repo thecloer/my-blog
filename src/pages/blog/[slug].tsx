@@ -1,18 +1,16 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
-import type { PostFrontMatter } from '@/types/data';
-import { readdirSync, readFileSync } from 'fs';
+import type { FrontMatter } from '@/types/data';
 import Link from 'next/link';
-import { join } from 'path';
-import matter from 'gray-matter';
-import { BLOG_DATA_PATH } from '@/config';
-import TagButton from '@/components/common/TagButton';
+import { DATA_SOURCE } from '@/config';
 import { customMarked } from '@/config/marked.config';
+import { Blog } from '@/repository/blog';
+import TagButton from '@/components/common/TagButton';
 
 interface Props {
   slug: string;
   content: string;
-  frontMatter: PostFrontMatter;
+  frontMatter: FrontMatter<typeof DATA_SOURCE.blog>;
 }
 
 interface Params extends ParsedUrlQuery {
@@ -48,8 +46,7 @@ const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const files = readdirSync(BLOG_DATA_PATH);
-  const paths = files.map((fileName) => ({
+  const paths = Blog.instance.fileNames.map((fileName) => ({
     params: {
       slug: fileName.replace('.md', ''),
     },
@@ -62,9 +59,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   const slug = params!.slug;
-  const markdownWithMeta = readFileSync(join(BLOG_DATA_PATH, `${slug}.md`), 'utf-8');
-  const { data, content } = matter(markdownWithMeta);
-  const frontMatter = data as PostFrontMatter;
+  const { content, frontMatter } = Blog.instance.getData(`${slug}.md`);
   return {
     props: {
       slug,

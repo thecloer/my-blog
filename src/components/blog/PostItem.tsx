@@ -1,11 +1,12 @@
 import type { FC } from 'react';
-import type { PostInfo } from 'src/types/data';
+import type { Info } from 'src/types/data';
 import Image from 'next/image';
 import Link from 'next/link';
-import TagButton from '../common/TagButton';
+import { DATA_SOURCE } from '@/config';
+import TagButton from '@/components/common/TagButton';
 
 interface Props {
-  postInfo: PostInfo;
+  postInfo: Info<typeof DATA_SOURCE.blog>;
 }
 
 const PostItem: FC<Props> = ({ postInfo: { slug, frontMatter } }) => {

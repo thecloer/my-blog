@@ -1,14 +1,15 @@
 import type { FC } from 'react';
-import type { PostInfo } from '@/types/data';
+import type { Info } from '@/types/data';
+import { DATA_SOURCE } from '@/config';
 import PostItem from './PostItem';
 
 interface Props {
-  posts: PostInfo[];
+  postInfos: Info<typeof DATA_SOURCE.blog>[];
 }
-const PostList: FC<Props> = ({ posts }) => {
+const PostList: FC<Props> = ({ postInfos }) => {
   return (
     <section className='-my-8 divide-y-2 divide-gray-100'>
-      {posts.map((post, i) => (
+      {postInfos.map((post, i) => (
         <PostItem key={i} postInfo={post} />
       ))}
     </section>

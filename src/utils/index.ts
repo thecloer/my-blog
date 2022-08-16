@@ -1,7 +1,7 @@
-import type { PostInfo } from '@/types/data';
+import type { InfoSortFunc } from '@/types/data';
 import { PAGINATION_LENGTH } from '@/config';
 
-export const sortByDateDESC = (a: PostInfo, b: PostInfo) => {
+export const sortByDateDESC: InfoSortFunc = (a, b) => {
   return new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime();
 };
 
