@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import Link from 'next/link';
-import TagButton from '../common/TagButton';
+import TagButton from '@/components/common/TagButton';
 
 interface Props {
   series: string[];
