@@ -11,15 +11,15 @@ interface Props {
   postInfos: Info<typeof DATA_SOURCE.blog>[];
   numPages: number;
   currentPage: number;
-  series: string[];
-  tags: string[];
+  uniqueSeries: string[];
+  uniqueTags: string[];
 }
 
 interface Params extends ParsedUrlQuery {
   page_index: string;
 }
 
-const BlogPage: NextPage<Props> = ({ postInfos, numPages, currentPage, series, tags }) => {
+const BlogPage: NextPage<Props> = ({ postInfos, numPages, currentPage, uniqueSeries, uniqueTags }) => {
   return (
     <div className='container-lg-62rem mx-auto px-8 md:px-0'>
       <div className='flex py-24'>
@@ -29,7 +29,7 @@ const BlogPage: NextPage<Props> = ({ postInfos, numPages, currentPage, series, t
         </main>
 
         <div className='w-1/3 hidden md:block'>
-          <Sidebar series={series} tags={tags} />
+          <Sidebar uniqueSeries={uniqueSeries} uniqueTags={uniqueTags} />
         </div>
       </div>
     </div>
@@ -50,29 +50,21 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const page = params ? parseInt(params.page_index) : 1;
+  const currentPage = params ? parseInt(params.page_index) : 1;
+  const blog = Blog.instance;
+  const { uniqueSeries, uniqueTags, fileNames } = blog;
+  const numPages = Math.ceil(fileNames.length / POSTS_PER_PAGE);
 
-  const postInfos = Blog.instance.getInfos();
-
-  const series = postInfos.map((post) => post.frontMatter.series);
-  const seriesSet = new Set(series);
-  if (seriesSet.has(null)) seriesSet.delete(null);
-  const uniqueSeries = [...seriesSet] as string[];
-
-  const tags = postInfos.flatMap((post) => post.frontMatter.tags);
-  const uniqueTags = [...new Set(tags)];
-
-  const numPages = Math.ceil(Blog.instance.fileNames.length / POSTS_PER_PAGE);
-  const pageIndex = page - 1;
-  const orderedPostInfos = postInfos.slice(pageIndex * POSTS_PER_PAGE, (pageIndex + 1) * POSTS_PER_PAGE);
+  const postInfos = blog.getInfos();
+  const orderedPostInfos = postInfos.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 
   return {
     props: {
       postInfos: orderedPostInfos,
       numPages,
-      currentPage: page,
-      series: uniqueSeries,
-      tags: uniqueTags,
+      currentPage,
+      uniqueSeries,
+      uniqueTags,
     },
   };
 };

@@ -9,7 +9,12 @@ interface Props {
   postInfo: Info<typeof DATA_SOURCE.blog>;
 }
 
-const PostItem: FC<Props> = ({ postInfo: { slug, frontMatter } }) => {
+const PostItem: FC<Props> = ({
+  postInfo: {
+    slug,
+    frontMatter: { title, description, date, series, tags, thumbnail },
+  },
+}) => {
   return (
     <article className='flex py-8 md:flex-row flex-col'>
       <div className='flex flex-col items-center'>
@@ -19,8 +24,8 @@ const PostItem: FC<Props> = ({ postInfo: { slug, frontMatter } }) => {
                     h-40 w-40 mb-4
                     md:h-48 md:w-48 md:mb-0 md:mr-6'
           >
-            {frontMatter.thumbnail ? (
-              <Image alt={frontMatter.title} src={`/${frontMatter.thumbnail}`} layout='fill' objectPosition='center' objectFit='cover' />
+            {thumbnail ? (
+              <Image alt={title} src={`/${thumbnail}`} layout='fill' objectPosition='center' objectFit='cover' />
             ) : (
               <div className='flex items-center justify-center bg-slate-500 h-full w-full'>
                 <h3 className='text-white'>No Image</h3>
@@ -31,29 +36,24 @@ const PostItem: FC<Props> = ({ postInfo: { slug, frontMatter } }) => {
       </div>
 
       <div className='grow flex flex-col'>
-        <Link href={`/blog/series/${frontMatter.series?.toLowerCase().replaceAll(' ', '-')}`} passHref>
+        <Link href={`/blog/series/${series?.toLowerCase().replaceAll(' ', '-')}`} passHref>
           <div>
-            <a className='text-sm font-medium cursor-pointer text-slate-600'>{frontMatter.series}</a>
+            <a className='text-sm font-medium cursor-pointer text-slate-600'>{series}</a>
           </div>
         </Link>
 
         <Link href={`/blog/${slug}`} passHref>
           <a className='flex'>
-            <h2 className='max-h-14 md:max-h-16 overflow-hidden text-xl md:text-2xl font-medium mb-2 cursor-pointer hover:underline '>{frontMatter.title}</h2>
+            <h2 className='max-h-14 md:max-h-16 overflow-hidden text-xl md:text-2xl font-medium mb-2 cursor-pointer hover:underline '>{title}</h2>
           </a>
         </Link>
 
         <div className='grow mb-4'>
-          <p className='max-h-20 leading-relaxed overflow-hidden break-words'>{frontMatter.description}</p>
+          <p className='max-h-20 leading-relaxed overflow-hidden break-words'>{description}</p>
         </div>
 
-        <div className='flex flex-wrap'>
-          {frontMatter.tags.map((tag, i) => (
-            <TagButton key={i} tag={tag} />
-          ))}
-        </div>
-
-        <span className='text-sm'>{frontMatter.date}</span>
+        <div className='flex flex-wrap'>{tags && tags.map((tag, i) => tag && <TagButton key={i} tag={tag} />)}</div>
+        <span className='text-sm'>{date}</span>
       </div>
     </article>
   );

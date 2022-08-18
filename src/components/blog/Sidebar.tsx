@@ -3,11 +3,11 @@ import Link from 'next/link';
 import TagButton from '@/components/common/TagButton';
 
 interface Props {
-  series: string[];
-  tags: string[];
+  uniqueSeries: string[];
+  uniqueTags: string[];
 }
 
-const Sidebar: FC<Props> = ({ series, tags }) => {
+const Sidebar: FC<Props> = ({ uniqueSeries, uniqueTags }) => {
   return (
     <aside className='ml-16 px-6 py-4 rounded-xl border-2'>
       <div className='relative flex w-full mb-4'>
@@ -16,10 +16,10 @@ const Sidebar: FC<Props> = ({ series, tags }) => {
       <section className='mb-4'>
         <h3 className='text-lg font-semibold mb-2'>Series</h3>
         <ul>
-          {series.map((seriesName, i) => (
-            <Link key={i} href={`/blog/series/${seriesName.toLowerCase().replaceAll(' ', '-')}`} passHref>
+          {uniqueSeries.map((series, i) => (
+            <Link key={i} href={`/blog/series/${series.toLowerCase().replaceAll(' ', '-')}`} passHref>
               <li className='flex flex-wrap break-words cursor-pointer hover:underline leading-relaxed'>
-                <a>{seriesName}</a>
+                <a>{series}</a>
               </li>
             </Link>
           ))}
@@ -29,7 +29,7 @@ const Sidebar: FC<Props> = ({ series, tags }) => {
       <section>
         <h3 className='text-lg font-semibold mb-2'>Tags</h3>
         <div className='flex flex-wrap'>
-          {tags.map((tag, i) => (
+          {uniqueTags.map((tag, i) => (
             <TagButton key={i} tag={tag} />
           ))}
         </div>

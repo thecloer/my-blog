@@ -7,7 +7,7 @@ export type FrontMatter<T extends DataType> = {
   description: string;
   date: string;
   thumbnail: string;
-  tags: string[];
+  tags: (string | null)[] | null;
 } & (T extends 'blog'
   ? {
       series: string | null;
