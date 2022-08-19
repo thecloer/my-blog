@@ -5,7 +5,7 @@ import { DATA_SOURCE } from '@/config';
 import { capitalize, generateSlug } from '@/utils';
 import { Blog } from '@/repository/blog';
 import PostList from '@/components/blog/PostList';
-import Sidebar from '@/components/blog/Sidebar';
+import BlogLayout from '@/components/blog/BlogLayout';
 
 interface Props {
   tagName: string;
@@ -19,21 +19,13 @@ interface Params extends ParsedUrlQuery {
 
 const BlogTagNamePage: NextPage<Props> = ({ tagName, postInfos, uniqueSeries, uniqueTags }) => {
   return (
-    <div className='container-lg-62rem mx-auto px-8 md:px-0'>
-      <div className='flex py-24'>
-        <main className='md:w-2/3'>
-          <h1 className='text-center mb-16 text-4xl font-bold sm:mb-20 sm:text-5xl'>
-            Tag: <span className='px-3 py-2 rounded-2xl bg-blue-300'>{capitalize(tagName)}</span>
-          </h1>
-          <PostList postInfos={postInfos} />
-          {/* TODO: Pagination */}
-        </main>
-
-        <div className='w-1/3 hidden md:block'>
-          <Sidebar uniqueSeries={uniqueSeries} uniqueTags={uniqueTags} />
-        </div>
-      </div>
-    </div>
+    <BlogLayout uniqueSeries={uniqueSeries} uniqueTags={uniqueTags}>
+      <h1 className='text-center mb-16 text-4xl font-bold sm:mb-20 sm:text-5xl'>
+        Tag: <span className='px-3 py-2 rounded-2xl bg-blue-300'>{capitalize(tagName)}</span>
+      </h1>
+      <PostList postInfos={postInfos} />
+      {/* TODO: Pagination */}
+    </BlogLayout>
   );
 };
 

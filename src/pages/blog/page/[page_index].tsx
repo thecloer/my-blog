@@ -3,10 +3,10 @@ import type { ParsedUrlQuery } from 'querystring';
 import type { Info } from '@/types/data';
 import { DATA_SOURCE, POSTS_PER_PAGE } from '@/config';
 import { Blog } from '@/repository/blog';
-import Sidebar from '@/components/blog/Sidebar';
 import PostList from '@/components/blog/PostList';
 import Pagination from '@/components/common/pagination/Pagination';
 import { pageRange } from '@/utils';
+import BlogLayout from '@/components/blog/BlogLayout';
 
 interface Props {
   postInfos: Info<typeof DATA_SOURCE.blog>[];
@@ -22,18 +22,10 @@ interface Params extends ParsedUrlQuery {
 
 const BlogPage: NextPage<Props> = ({ postInfos, numPages, currentPage, uniqueSeries, uniqueTags }) => {
   return (
-    <div className='container-lg-62rem mx-auto px-8 md:px-0'>
-      <div className='flex py-24'>
-        <main className='md:w-2/3'>
-          <PostList postInfos={postInfos} />
-          <Pagination numPages={numPages} currentPage={currentPage} />
-        </main>
-
-        <div className='w-1/3 hidden md:block'>
-          <Sidebar uniqueSeries={uniqueSeries} uniqueTags={uniqueTags} />
-        </div>
-      </div>
-    </div>
+    <BlogLayout uniqueSeries={uniqueSeries} uniqueTags={uniqueTags}>
+      <PostList postInfos={postInfos} />
+      <Pagination numPages={numPages} currentPage={currentPage} />
+    </BlogLayout>
   );
 };
 
