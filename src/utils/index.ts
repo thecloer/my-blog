@@ -2,7 +2,7 @@ import type { InfoSortFunc } from '@/types/data';
 import { PAGINATION_LENGTH } from '@/config';
 
 // common
-const range = (start: number, end: number) => {
+export const pageRange = (start: number, end: number) => {
   const numList: number[] = [];
   if (start < end) {
     for (let i = start; i < end; i++) {
@@ -28,7 +28,7 @@ export const generatePaginationNumbers = (currentPage: number, numPages: number)
     if (gaps.previous < gap) gaps.next++;
     else if (gaps.next < gap) gaps.previous++;
   }
-  const paginationNumbers = range(currentPage - gaps.previous, currentPage + gaps.next + 1);
+  const paginationNumbers = pageRange(currentPage - gaps.previous, currentPage + gaps.next + 1);
 
   return {
     paginationNumbers,

@@ -6,6 +6,7 @@ import { Blog } from '@/repository/blog';
 import Sidebar from '@/components/blog/Sidebar';
 import PostList from '@/components/blog/PostList';
 import Pagination from '@/components/common/pagination/Pagination';
+import { pageRange } from '@/utils';
 
 interface Props {
   postInfos: Info<typeof DATA_SOURCE.blog>[];
@@ -39,10 +40,8 @@ const BlogPage: NextPage<Props> = ({ postInfos, numPages, currentPage, uniqueSer
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const { fileNames } = Blog.instance;
   const numPages = Math.ceil(fileNames.length / POSTS_PER_PAGE);
-  const paths: { params: Params }[] = [];
-  for (let i = 1; i <= numPages; i++) {
-    paths.push({ params: { page_index: i.toString() } });
-  }
+  const pageIndexList = pageRange(1, numPages);
+  const paths = pageIndexList.map((i) => ({ params: { page_index: i.toString() } }));
   return {
     paths,
     fallback: false,
