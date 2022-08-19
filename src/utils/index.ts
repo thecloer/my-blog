@@ -24,8 +24,8 @@ export const sortByDateDESC: InfoSortFunc = (a, b) => {
 export const generatePaginationNumbers = (currentPage: number, numPages: number) => {
   const gap = Math.floor(PAGINATION_LENGTH / 2);
   const gaps = { previous: Math.min(gap, currentPage - 1), next: Math.min(gap, numPages - currentPage) };
-  const LENGTH = Math.min(PAGINATION_LENGTH - 1, numPages - 1);
-  while (gaps.previous + gaps.next < LENGTH) {
+  const GAP_LENGTH = Math.min(PAGINATION_LENGTH - 1, numPages - 1);
+  while (gaps.previous + gaps.next < GAP_LENGTH) {
     if (gaps.previous < gap) gaps.next++;
     else if (gaps.next < gap) gaps.previous++;
   }
