@@ -7,10 +7,10 @@ interface Props {
   className?: string;
 }
 
-const TagButton: FC<Props> = ({ tag, className = 'text-xs px-2 py-1 mr-2 mb-2 rounded-md bg-blue-400' }) => {
+const TagButton: FC<Props> = ({ tag, className }) => {
   return (
     <Link href={`/blog/tag/${generateSlug(tag)}`} passHref>
-      <button className={className}>
+      <button className={`text-xs px-2 py-1 mr-2 mb-2 rounded-md bg-blue-400 ${className}`}>
         <a>{tag}</a>
       </button>
     </Link>
