@@ -2,7 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 import type { Info } from '@/types/data';
 import { DATA_SOURCE } from '@/config';
-import { titleToSlug } from '@/utils';
+import { generateSlug } from '@/utils';
 import { Blog } from '@/repository/blog';
 import PostList from '@/components/blog/PostList';
 import Sidebar from '@/components/blog/Sidebar';
@@ -21,7 +21,7 @@ const BlogSeriesNamePage: NextPage<Props> = ({ postInfos, uniqueSeries, uniqueTa
     <div className='container-lg-62rem mx-auto px-8 md:px-0'>
       <div className='flex py-24'>
         <main className='md:w-2/3'>
-          <h1 className='text-center mb-16 text-4xl font-semibold sm:mb-20 sm:text-5xl sm:font-bold'>{postInfos[0].frontMatter.series}</h1>
+          <h1 className='text-center mb-16 text-4xl font-semibold sm:mb-20 sm:text-5xl sm:font-bold'>{postInfos[0]?.frontMatter.series}</h1>
           <PostList postInfos={postInfos} />
           {/* TODO: Pagination */}
         </main>
@@ -36,7 +36,7 @@ const BlogSeriesNamePage: NextPage<Props> = ({ postInfos, uniqueSeries, uniqueTa
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const { uniqueSeries } = Blog.instance;
-  const paths = uniqueSeries.map((series) => ({ params: { series_name: titleToSlug(series) } }));
+  const paths = uniqueSeries.map((series) => ({ params: { series_name: generateSlug(series) } }));
   return {
     paths,
     fallback: false,
@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) 
   const blog = Blog.instance;
   const { uniqueSeries, uniqueTags } = blog;
   const infos = blog.getInfos();
-  const postInfos = infos.filter(({ frontMatter: { series } }) => series && titleToSlug(series) === seriesName);
+  const postInfos = infos.filter(({ frontMatter: { series } }) => series && generateSlug(series) === seriesName);
 
   return {
     props: {

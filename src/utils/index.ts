@@ -11,8 +11,9 @@ export const pageRange = (start: number, end: number) => {
   }
   return numList;
 };
-
-export const titleToSlug = (title: string) => title.toLowerCase().replaceAll(' ', '-');
+export const capitalize = (text: string) => text.charAt(0).toUpperCase().concat(text.slice(1));
+export const generateSlug = (text: string) => text.toLowerCase().replaceAll(' ', '-');
+export const convertToCamelcase = (text: string) => text.split(' ').map(capitalize).join('');
 
 // sort
 export const sortByDateDESC: InfoSortFunc = (a, b) => {

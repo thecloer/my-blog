@@ -1,16 +1,16 @@
 import type { FC } from 'react';
 import Link from 'next/link';
-import { titleToSlug } from '@/utils';
+import { generateSlug } from '@/utils';
 
 interface Props {
   tag: string;
   className?: string;
 }
 
-const TagButton: FC<Props> = ({ tag, className = '' }) => {
+const TagButton: FC<Props> = ({ tag, className = 'text-xs px-2 py-1 mr-2 mb-2 rounded-md bg-blue-400' }) => {
   return (
-    <Link href={`/blog/tag/${titleToSlug(tag)}`} passHref>
-      <button className={`text-xs px-2 py-1 mr-2 mb-2 rounded-md bg-blue-400 ${className}`}>
+    <Link href={`/blog/tag/${generateSlug(tag)}`} passHref>
+      <button className={className}>
         <a>{tag}</a>
       </button>
     </Link>

@@ -3,6 +3,7 @@ import type { Info } from 'src/types/data';
 import Image from 'next/image';
 import Link from 'next/link';
 import { DATA_SOURCE } from '@/config';
+import { generateSlug } from '@/utils';
 import TagButton from '@/components/common/TagButton';
 
 interface Props {
@@ -36,11 +37,13 @@ const PostItem: FC<Props> = ({
       </div>
 
       <div className='grow flex flex-col'>
-        <Link href={`/blog/series/${series?.toLowerCase().replaceAll(' ', '-')}`} passHref>
-          <div>
-            <a className='text-sm font-medium cursor-pointer text-slate-600'>{series}</a>
-          </div>
-        </Link>
+        {series && (
+          <Link href={`/blog/series/${generateSlug(series)}`} passHref>
+            <div>
+              <a className='text-sm font-medium cursor-pointer text-slate-600'>{series}</a>
+            </div>
+          </Link>
+        )}
 
         <Link href={`/blog/${slug}`} passHref>
           <a className='flex'>
@@ -52,7 +55,7 @@ const PostItem: FC<Props> = ({
           <p className='max-h-20 leading-relaxed overflow-hidden break-words'>{description}</p>
         </div>
 
-        <div className='flex flex-wrap'>{tags && tags.map((tag, i) => tag && <TagButton key={i} tag={tag} />)}</div>
+        <div className='flex flex-wrap'>{tags && tags.map((tag, i) => <TagButton key={i} tag={tag} />)}</div>
         <span className='text-sm'>{date}</span>
       </div>
     </article>

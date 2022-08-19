@@ -2,7 +2,7 @@ import type { DataType, FrontMatter, InfoSortFunc } from '@/types/data';
 import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
-import { sortByDateDESC } from '@/utils';
+import { convertToCamelcase, sortByDateDESC } from '@/utils';
 
 export abstract class DataRepository<T extends DataType> {
   readonly fileNames: string[];
@@ -14,7 +14,9 @@ export abstract class DataRepository<T extends DataType> {
 
   getData(fileName: string) {
     const { data, content } = matter(readFileSync(join(this._path, fileName), 'utf-8'));
-    const frontMatter = data as FrontMatter<T>;
+    const { tags: tagsRaw, ...rest } = data as { tags: (string | null)[] | null };
+    const tags = tagsRaw && (tagsRaw.filter((tag) => tag) as string[]).map((tag) => convertToCamelcase(tag));
+    const frontMatter = { tags, ...rest } as FrontMatter<T>;
     return { frontMatter, content };
   }
 
