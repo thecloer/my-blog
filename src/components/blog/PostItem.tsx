@@ -38,7 +38,7 @@ const PostItem: FC<Props> = ({
 
       <div className='grow flex flex-col'>
         {series && (
-          <Link href={`/blog/series/${generateSlug(series)}`} passHref>
+          <Link href={`/blog/search/series/${generateSlug(series)}`} passHref>
             <div>
               <a className='text-sm font-medium cursor-pointer text-slate-600'>{series}</a>
             </div>

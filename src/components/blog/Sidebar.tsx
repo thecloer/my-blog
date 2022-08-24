@@ -18,7 +18,7 @@ const Sidebar: FC<Props> = ({ uniqueSeries, uniqueTags }) => {
         <h3 className='text-lg font-semibold mb-2'>Series</h3>
         <ul>
           {uniqueSeries.map((series, i) => (
-            <Link key={i} href={`/blog/series/${generateSlug(series)}`} passHref>
+            <Link key={i} href={`/blog/search/series/${generateSlug(series)}`} passHref>
               <li className='flex flex-wrap break-words cursor-pointer hover:underline leading-relaxed capitalize'>
                 <a>{series}</a>
               </li>

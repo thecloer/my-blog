@@ -8,20 +8,22 @@ import PostList from '@/components/blog/PostList';
 import BlogLayout from '@/components/blog/BlogLayout';
 
 interface Props {
-  tagSlug: string;
+  parsedcategory: 'tag' | 'series';
+  parsedSlug: string;
   postInfos: Info<typeof DATA_SOURCE.blog>[];
   uniqueSeries: string[];
   uniqueTags: string[];
 }
 interface Params extends ParsedUrlQuery {
-  tag_name: string;
+  category: 'tag' | 'series';
+  slug: string;
 }
 
-const BlogTagNamePage: NextPage<Props> = ({ tagSlug, postInfos, uniqueSeries, uniqueTags }) => {
+const BlogTagNamePage: NextPage<Props> = ({ parsedcategory, parsedSlug, postInfos, uniqueSeries, uniqueTags }) => {
   return (
     <BlogLayout uniqueSeries={uniqueSeries} uniqueTags={uniqueTags}>
-      <h1 className='text-center mb-16 text-4xl font-bold sm:mb-20 sm:text-5xl'>
-        Tag: <span className='px-3 py-2 rounded-2xl bg-blue-300 capitalize'>{releaseSlug(tagSlug)}</span>
+      <h1 className='text-center mb-16 text-4xl font-semibold sm:mb-20 sm:text-5xl capitalize'>
+        {parsedcategory === 'tag' ? <span className='px-3 py-2 rounded-2xl bg-blue-300'>{releaseSlug(parsedSlug)}</span> : releaseSlug(parsedSlug)}
       </h1>
       <PostList postInfos={postInfos} />
       {/* TODO: Pagination */}
@@ -30,24 +32,33 @@ const BlogTagNamePage: NextPage<Props> = ({ tagSlug, postInfos, uniqueSeries, un
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const { uniqueTags } = Blog.instance;
-  const paths = uniqueTags.map((tag) => ({ params: { tag_name: generateSlug(tag) } }));
+  const { uniqueTags, uniqueSeries } = Blog.instance;
+  const tagPaths = uniqueTags.map((tag) => ({ params: { category: 'tag' as const, slug: generateSlug(tag) } }));
+  const seriespPaths = uniqueSeries.map((series) => ({ params: { category: 'series' as const, slug: generateSlug(series) } }));
 
+  const paths = [...tagPaths, ...seriespPaths];
   return {
     paths,
     fallback: false,
   };
 };
+
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const tagSlug = params!.tag_name;
+  const parsedcategory = params!.category;
+  const parsedSlug = params!.slug;
   const blog = Blog.instance;
   const { uniqueSeries, uniqueTags } = blog;
   const infos = blog.getInfos();
-  const postInfos = infos.filter(({ frontMatter: { tags } }) => tags && tags.map((tag) => generateSlug(tag)).includes(tagSlug));
+  const postInfos = infos.filter(
+    parsedcategory === 'tag'
+      ? ({ frontMatter: { tags } }) => tags && tags.some((tag) => generateSlug(tag) === parsedSlug)
+      : ({ frontMatter: { series } }) => series && generateSlug(series) === parsedSlug
+  );
 
   return {
     props: {
-      tagSlug,
+      parsedcategory,
+      parsedSlug,
       postInfos,
       uniqueSeries,
       uniqueTags,

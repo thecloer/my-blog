@@ -26,7 +26,7 @@ const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
         <section className='mx-auto max-w-[65ch]'>
           <div className='mb-20 pb-4 border-b-2'>
             {series === null || (
-              <Link href={`/blog/series/${series.toLowerCase().replaceAll(' ', '-')}`} passHref>
+              <Link href={`/blog/search/series/${series.toLowerCase().replaceAll(' ', '-')}`} passHref>
                 <a className='text-lg font-semibold text-slate-600 cursor-pointer hover:underline mb-2 block'>{series}</a>
               </Link>
             )}
