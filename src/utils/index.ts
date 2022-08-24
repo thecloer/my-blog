@@ -5,7 +5,7 @@ import { PAGINATION_LENGTH } from '@/config';
 export const pageRange = (start: number, end: number) => {
   const numList: number[] = [];
   if (start < end) {
-    for (let i = start; i < end; i++) {
+    for (let i = start; i <= end; i++) {
       numList.push(i);
     }
   }
@@ -13,6 +13,7 @@ export const pageRange = (start: number, end: number) => {
 };
 export const generateSlug = (text: string) => text.toLowerCase().replaceAll(' ', '-');
 export const releaseSlug = (text: string) => text.replaceAll('-', ' ');
+export const generateReadmeUrl = (githubUrl: string) => `${githubUrl.replace('github', 'raw.githubusercontent')}/main/README.md`;
 
 // sort
 export const sortByDateDESC: InfoSortFunc = (a, b) => {
@@ -28,7 +29,7 @@ export const generatePaginationNumbers = (currentPage: number, numPages: number)
     if (gaps.previous < gap) gaps.next++;
     else if (gaps.next < gap) gaps.previous++;
   }
-  const paginationNumbers = pageRange(currentPage - gaps.previous, currentPage + gaps.next + 1);
+  const paginationNumbers = pageRange(currentPage - gaps.previous, currentPage + gaps.next);
 
   return {
     paginationNumbers,
