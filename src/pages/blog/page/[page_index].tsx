@@ -2,10 +2,10 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 import type { Info } from '@/types/data';
 import { DATA_SOURCE, POSTS_PER_PAGE } from '@/config';
+import { pageRange } from '@/utils';
 import { Blog } from '@/repository/blog';
 import PostList from '@/components/blog/PostList';
 import Pagination from '@/components/common/pagination/Pagination';
-import { pageRange } from '@/utils';
 import BlogLayout from '@/components/blog/BlogLayout';
 
 interface Props {
