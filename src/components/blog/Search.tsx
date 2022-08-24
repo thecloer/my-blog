@@ -1,5 +1,5 @@
+import { type FormEvent, useEffect, useState } from 'react';
 import type { Info } from '@/types/data';
-import { FormEvent, useEffect, useState } from 'react';
 import SearchResultList from './SearchResultList';
 
 const Search = () => {
