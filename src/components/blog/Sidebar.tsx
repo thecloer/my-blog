@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import Link from 'next/link';
 import { generateSlug } from '@/utils';
 import TagButton from '@/components/common/TagButton';
+import Search from './Search';
 
 interface Props {
   uniqueSeries: string[];
@@ -11,9 +12,8 @@ interface Props {
 const Sidebar: FC<Props> = ({ uniqueSeries, uniqueTags }) => {
   return (
     <aside className='ml-16 px-6 py-4 rounded-xl border-2'>
-      <div className='relative flex w-full mb-4'>
-        <input type='text' placeholder='Search....' className='outline-none border-2 rounded-lg px-5 py-2 w-full' />
-      </div>
+      <Search />
+
       <section className='mb-4'>
         <h3 className='text-lg font-semibold mb-2'>Series</h3>
         <ul>
