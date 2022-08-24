@@ -12,8 +12,8 @@ export class Blog extends DataRepository<typeof DATA_SOURCE.blog> {
     if (seriesSet.has(null)) seriesSet.delete(null);
     this.uniqueSeries = [...seriesSet] as string[];
 
-    const tagswithNull = infos.flatMap((info) => info.frontMatter.tags);
-    const tagsSet = new Set(tagswithNull);
+    const tagsWithNull = infos.flatMap((info) => info.frontMatter.tags);
+    const tagsSet = new Set(tagsWithNull);
     if (tagsSet.has(null)) tagsSet.delete(null);
     this.uniqueTags = [...tagsSet] as string[];
   }
