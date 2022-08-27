@@ -20,15 +20,14 @@ module.exports = {
           css: {
             img: {
               borderRadius: theme('borderRadius.xl'),
-              maxHeight: '26rem',
-              margin: '1.5rem auto',
+              margin: '1rem auto 1.5rem',
             },
-            'p code': {
+            code: {
               borderRadius: theme('borderRadius.md'),
               backgroundColor: theme('colors.slate.300'),
               padding: `${theme('spacing.[0.5]')} ${theme('spacing.1')}`,
             },
-            'p code::after, p code::before': {
+            'code::before, code::after': {
               content: theme('content.none'),
             },
           },
