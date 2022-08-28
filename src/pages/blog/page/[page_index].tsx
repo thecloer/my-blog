@@ -30,8 +30,8 @@ const BlogPage: NextPage<Props> = ({ postInfos, numPages, currentPage, uniqueSer
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const { fileNames } = Blog.instance;
-  const numPages = Math.ceil(fileNames.length / POSTS_PER_PAGE);
+  const { postNum } = Blog.instance;
+  const numPages = Math.ceil(postNum / POSTS_PER_PAGE);
   const pageIndexList = pageRange(1, numPages);
   const paths = pageIndexList.map((i) => ({ params: { page_index: i.toString() } }));
   return {
@@ -43,8 +43,8 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   const currentPage = params ? parseInt(params.page_index) : 1;
   const blog = Blog.instance;
-  const { uniqueSeries, uniqueTags, fileNames } = blog;
-  const numPages = Math.ceil(fileNames.length / POSTS_PER_PAGE);
+  const { uniqueSeries, uniqueTags, postNum } = blog;
+  const numPages = Math.ceil(postNum / POSTS_PER_PAGE);
 
   const postInfos = blog.getInfos();
   const orderedPostInfos = postInfos.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);

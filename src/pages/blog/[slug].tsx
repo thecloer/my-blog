@@ -4,6 +4,7 @@ import type { FrontMatter } from '@/types/data';
 import Link from 'next/link';
 import { DATA_SOURCE } from '@/config';
 import { customMarked } from '@/config/marked.config';
+import { generateSlug } from '@/utils';
 import { Blog } from '@/repository/blog';
 import BlogTagButton from '@/components/blog/BlogTagButton';
 
@@ -26,7 +27,7 @@ const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
         <section className='mx-auto max-w-[65ch]'>
           <div className='mb-20 pb-4 border-b-2'>
             {series === null || (
-              <Link href={`/blog/search/series/${series.toLowerCase().replaceAll(' ', '-')}`} passHref>
+              <Link href={`/blog/search/series/${generateSlug(series)}`} passHref>
                 <a className='text-lg font-semibold text-slate-600 cursor-pointer hover:underline mb-2 block'>{series}</a>
               </Link>
             )}
@@ -42,11 +43,13 @@ const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const paths = Blog.instance.fileNames.map((fileName) => ({
-    params: {
-      slug: fileName.replace('.md', ''),
-    },
-  }));
+  // const paths = Blog.instance.fileNames.map((fileName) => ({
+  //   params: {
+  //     slug: encodeURIComponent(fileName.replace('.md', '')),
+  //   },
+  // }));
+  const paths = Blog.instance.getInfos().map(({ slug }) => ({ params: { slug } }));
+
   return {
     paths,
     fallback: false,
@@ -54,7 +57,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const slug = params!.slug;
+  const slug = decodeURIComponent(params!.slug);
   const { content, frontMatter } = Blog.instance.getData(`${slug}.md`);
   return {
     props: {

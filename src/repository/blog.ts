@@ -16,6 +16,8 @@ export class Blog extends DataRepository<typeof DATA_SOURCE.blog> {
     const tagsSet = new Set(tagsWithNull);
     if (tagsSet.has(null)) tagsSet.delete(null);
     this.uniqueTags = [...tagsSet] as string[];
+
+    this.postNum = this.fileNames.length;
   }
   static get instance() {
     return this._instance ?? (this._instance = new this());
@@ -23,6 +25,7 @@ export class Blog extends DataRepository<typeof DATA_SOURCE.blog> {
 
   readonly uniqueSeries: string[];
   readonly uniqueTags: string[];
+  readonly postNum: number;
 
   search(query: string) {
     const infos = this.getInfos();

@@ -5,7 +5,7 @@ import matter from 'gray-matter';
 import { sortByDateDESC } from '@/utils';
 
 export abstract class DataRepository<T extends DataType> {
-  readonly fileNames: string[];
+  protected readonly fileNames: string[];
   protected readonly _path: string;
   constructor(private readonly source: T) {
     this._path = join('data', source);
