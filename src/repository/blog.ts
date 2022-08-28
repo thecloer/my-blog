@@ -23,4 +23,11 @@ export class Blog extends DataRepository<typeof DATA_SOURCE.blog> {
 
   readonly uniqueSeries: string[];
   readonly uniqueTags: string[];
+
+  search(query: string) {
+    const infos = this.getInfos();
+    const searchProperties = ['title', 'description'] as const;
+    const result = infos.filter(({ frontMatter }) => searchProperties.some((key) => frontMatter[key].toLowerCase().includes(query)));
+    return result;
+  }
 }
