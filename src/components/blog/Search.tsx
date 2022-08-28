@@ -22,7 +22,9 @@ const Search = () => {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchTerm.length !== 1) router.push(`/blog/search?q=${encodeURIComponent(searchTerm)}`);
+    if (searchTerm.length === 1) return;
+    setSearchTerm('');
+    router.push(`/blog/search?q=${encodeURIComponent(searchTerm)}`);
   };
 
   return (
