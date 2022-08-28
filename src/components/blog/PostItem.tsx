@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { DATA_SOURCE } from '@/config';
 import { generateSlug } from '@/utils';
-import TagButton from '@/components/common/TagButton';
+import BlogTagButton from '@/components/blog/BlogTagButton';
 
 interface Props {
   postInfo: Info<typeof DATA_SOURCE.blog>;
@@ -55,7 +55,7 @@ const PostItem: FC<Props> = ({
           <p className='max-h-20 leading-relaxed overflow-hidden break-words'>{description}</p>
         </div>
 
-        <div className='flex flex-wrap'>{tags && tags.map((tag, i) => <TagButton key={i} tag={tag} />)}</div>
+        <div className='flex flex-wrap'>{tags && tags.map((tag, i) => <BlogTagButton key={i} tag={tag} />)}</div>
         <span className='text-sm'>{date}</span>
       </div>
     </article>

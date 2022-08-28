@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { DATA_SOURCE } from '@/config';
 import { customMarked } from '@/config/marked.config';
 import { Blog } from '@/repository/blog';
-import TagButton from '@/components/common/TagButton';
+import BlogTagButton from '@/components/blog/BlogTagButton';
 
 interface Props {
   slug: string;
@@ -32,7 +32,7 @@ const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
             )}
             <h1 className='font-extrabold text-4xl mb-4'>{title}</h1>
             <span className='block mb-2'>{formattedDate}</span>
-            <div className='flex flex-wrap '>{tags && tags.map((tag, i) => tag && <TagButton key={i} tag={tag} className='transition-shadow hover:shadow-none shadow-lg' />)}</div>
+            <div className='flex flex-wrap '>{tags && tags.map((tag, i) => <BlogTagButton key={i} tag={tag} className='transition-shadow hover:shadow-none shadow-lg' />)}</div>
           </div>
           <article dangerouslySetInnerHTML={{ __html: customMarked(content) }} className='prose' />
         </section>

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import Link from 'next/link';
 import { generateSlug } from '@/utils';
-import TagButton from '@/components/common/TagButton';
+import BlogTagButton from '@/components/blog/BlogTagButton';
 import Search from './Search';
 
 interface Props {
@@ -31,7 +31,7 @@ const Sidebar: FC<Props> = ({ uniqueSeries, uniqueTags }) => {
         <h3 className='text-lg font-semibold mb-2'>Tags</h3>
         <div className='flex flex-wrap'>
           {uniqueTags.map((tag, i) => (
-            <TagButton key={i} tag={tag} />
+            <BlogTagButton key={i} tag={tag} />
           ))}
         </div>
       </section>
