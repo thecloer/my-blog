@@ -1,11 +1,11 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 import type { Info } from '@/types/data';
-import Link from 'next/link';
 import { DATA_SOURCE } from '@/config';
 import { Blog } from '@/repository/blog';
 import BlogLayout from '@/components/blog/BlogLayout';
 import PostList from '@/components/blog/PostList';
+import BlogResultHeader from '@/components/blog/BlogResultHeader';
 
 interface Props {
   postInfos: Info<typeof DATA_SOURCE.blog>[];
@@ -19,12 +19,8 @@ interface Params extends ParsedUrlQuery {
 const BlogSearch: NextPage<Props> = ({ postInfos, uniqueSeries, uniqueTags }) => {
   return (
     <BlogLayout uniqueSeries={uniqueSeries} uniqueTags={uniqueTags}>
-      <Link href='/blog' passHref>
-        <button className=' px-3 py-1 mr-2 mb-8 rounded-md bg-indigo-300 shadow-md'>
-          <a>All Posts</a>
-        </button>
-      </Link>
-      {postInfos.length ? <PostList postInfos={postInfos} /> : <h1 className='text-center text-xl font-semibold'>No Results</h1>}
+      <BlogResultHeader resultNum={postInfos.length} />
+      <PostList postInfos={postInfos} />
     </BlogLayout>
   );
 };

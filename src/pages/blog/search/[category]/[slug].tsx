@@ -6,6 +6,7 @@ import { generateSlug, releaseSlug } from '@/utils';
 import { Blog } from '@/repository/blog';
 import PostList from '@/components/blog/PostList';
 import BlogLayout from '@/components/blog/BlogLayout';
+import BlogResultHeader from '@/components/blog/BlogResultHeader';
 
 interface Props {
   parsedcategory: 'tag' | 'series';
@@ -25,6 +26,8 @@ const BlogTagNamePage: NextPage<Props> = ({ parsedcategory, parsedSlug, postInfo
       <h1 className='text-center mb-16 text-4xl font-semibold sm:mb-20 sm:text-5xl capitalize'>
         {parsedcategory === 'tag' ? <span className='px-3 py-2 rounded-2xl bg-blue-300'>{releaseSlug(parsedSlug)}</span> : releaseSlug(parsedSlug)}
       </h1>
+
+      <BlogResultHeader resultNum={postInfos.length} />
       <PostList postInfos={postInfos} />
       {/* TODO: Pagination */}
     </BlogLayout>
