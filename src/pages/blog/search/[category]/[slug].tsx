@@ -45,7 +45,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
   const parsedcategory = params!.category;
-  const parsedSlug = params!.slug;
+  const parsedSlug = decodeURIComponent(params!.slug);
   const blog = Blog.instance;
   const { uniqueSeries, uniqueTags } = blog;
   const infos = blog.getInfos();

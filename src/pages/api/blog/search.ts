@@ -4,7 +4,7 @@ import { Blog } from '@/repository/blog';
 export default async function searchHandler(req: NextApiRequest, res: NextApiResponse) {
   const searchQuery = req.query.q;
   if (typeof searchQuery === 'string') {
-    const result = Blog.instance.search(searchQuery);
+    const result = Blog.instance.search(decodeURIComponent(searchQuery));
     return res.status(200).json({ result });
   }
   return res.status(400).json({ result: [] });

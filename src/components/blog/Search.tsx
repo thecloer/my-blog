@@ -13,7 +13,7 @@ const Search = () => {
     (async () => {
       if (searchTerm.length < 2) setSearchResult([]);
       else {
-        const res = await fetch(`/api/blog/search?q=${searchTerm}`);
+        const res = await fetch(`/api/blog/search?q=${encodeURIComponent(searchTerm)}`);
         const { result } = await res.json();
         setSearchResult(result);
       }
@@ -22,7 +22,7 @@ const Search = () => {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchTerm.length !== 1) router.push(`/blog/search?q=${searchTerm}`);
+    if (searchTerm.length !== 1) router.push(`/blog/search?q=${encodeURIComponent(searchTerm)}`);
   };
 
   return (

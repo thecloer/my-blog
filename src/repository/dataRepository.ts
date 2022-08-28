@@ -22,7 +22,7 @@ export abstract class DataRepository<T extends DataType> {
 
   getInfos(sortFunction: InfoSortFunc = sortByDateDESC) {
     const posts = this.fileNames.map((fileName) => {
-      const slug = fileName.replace('.md', '');
+      const slug = encodeURIComponent(fileName.replace('.md', ''));
       const { frontMatter } = this.getData(fileName);
       return { slug, frontMatter };
     });

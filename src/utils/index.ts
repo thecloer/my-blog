@@ -11,9 +11,12 @@ export const pageRange = (start: number, end: number) => {
   }
   return numList;
 };
-export const generateSlug = (text: string) => text.toLowerCase().replaceAll(' ', '-');
-export const releaseSlug = (text: string) => text.replaceAll('-', ' ');
-export const generateReadmeUrl = (githubUrl: string) => `${githubUrl.replace('github', 'raw.githubusercontent')}/main/README.md`;
+export const generateSlug = (text: string) => encodeURIComponent(text.toLowerCase().replaceAll(' ', '-'));
+export const releaseSlug = (text: string) => decodeURIComponent(text).replaceAll('-', ' ');
+
+export const generateReadmeUrl = (repoSlug: string) => `https://raw.githubusercontent.com/cloer-Choi/${repoSlug}/main/README.md`;
+export const generateGithubUrl = (repoSlug: string) => `https://github.com/cloer-Choi/${repoSlug}`;
+export const generateNpmUrl = (repoSlug: string) => `https://www.npmjs.com/package/${repoSlug}`;
 
 // sort
 export const sortByDateDESC: InfoSortFunc = (a, b) => {

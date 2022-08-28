@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ qu
       props: {},
     };
 
-  const result = Blog.instance.search(searchQuery);
+  const result = Blog.instance.search(decodeURIComponent(searchQuery));
   const { uniqueSeries, uniqueTags } = Blog.instance;
   return {
     props: {
