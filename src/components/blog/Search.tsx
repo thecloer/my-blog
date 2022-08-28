@@ -1,8 +1,10 @@
 import { type FormEvent, useEffect, useState } from 'react';
 import type { Info } from '@/types/data';
 import SearchResultList from './SearchResultList';
+import { useRouter } from 'next/router';
 
 const Search = () => {
+  const router = useRouter();
   const [isFocused, setIsFocused] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState<Info<'blog'>[]>([]);
@@ -20,7 +22,7 @@ const Search = () => {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(searchTerm); // TODO: go to `/pages/blog/search?q=${searchTerm}`
+    if (searchTerm.length !== 1) router.push(`/blog/search?q=${searchTerm}`);
   };
 
   return (
