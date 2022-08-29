@@ -1,7 +1,8 @@
 import { type FormEvent, useEffect, useState } from 'react';
 import type { Info } from '@/types/data';
-import SearchResultList from './SearchResultList';
 import { useRouter } from 'next/router';
+import { useDebounce } from '@/hooks';
+import SearchResultList from './SearchResultList';
 
 const Search = () => {
   const router = useRouter();
@@ -9,16 +10,18 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResult, setSearchResult] = useState<Info<'blog'>[]>([]);
 
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
   useEffect(() => {
     (async () => {
-      if (searchTerm.length < 2) setSearchResult([]);
+      if (debouncedSearchTerm.length < 2) setSearchResult([]);
       else {
-        const res = await fetch(`/api/blog/search?q=${encodeURIComponent(searchTerm)}`);
+        const res = await fetch(`/api/blog/search?q=${encodeURIComponent(debouncedSearchTerm)}`);
         const { result } = await res.json();
         setSearchResult(result);
       }
     })();
-  }, [searchTerm]);
+  }, [debouncedSearchTerm]);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
