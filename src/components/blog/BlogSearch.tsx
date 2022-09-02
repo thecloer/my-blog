@@ -2,9 +2,9 @@ import { type FormEvent, useEffect, useState } from 'react';
 import type { Info } from '@/types/data';
 import { useRouter } from 'next/router';
 import { useDebounce } from '@/hooks';
-import SearchResultList from './SearchResultList';
+import BlogSearchResultList from './BlogSearchResultList';
 
-const Search = () => {
+const BlogSearch = () => {
   const router = useRouter();
   const [isFocused, setIsFocused] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,9 +43,9 @@ const Search = () => {
           onBlur={() => setIsFocused(false)}
         />
       </form>
-      <SearchResultList result={searchResult} isFocused={isFocused} />
+      <BlogSearchResultList result={searchResult} isFocused={isFocused} />
     </div>
   );
 };
 
-export default Search;
+export default BlogSearch;

@@ -7,7 +7,7 @@ interface Props {
   isFocused: boolean;
 }
 
-const SearchResultList: FC<Props> = ({ result, isFocused }) => {
+const BlogSearchResultList: FC<Props> = ({ result, isFocused }) => {
   return result.length > 0 ? (
     <div
       className={`absolute top-11 right-0 p-4 z-10 border-2 border-slate-300 shadow-lg rounded-xl bg-slate-50 w-[515px] max-h-screen overflow-scroll 
@@ -22,4 +22,4 @@ const SearchResultList: FC<Props> = ({ result, isFocused }) => {
   ) : null;
 };
 
-export default SearchResultList;
+export default BlogSearchResultList;
