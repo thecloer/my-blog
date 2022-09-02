@@ -10,7 +10,7 @@ interface Props {
 const ProjectHome: NextPage<Props> = ({ projects }) => {
   return (
     <div className='container-lg-62rem mx-auto px-8 md:px-0'>
-      <main className='py-24'>
+      <main className='py-20'>
         {/* <ProjectSearch /> TODO: Project Search */}
         <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {projects.map((project, i) => (

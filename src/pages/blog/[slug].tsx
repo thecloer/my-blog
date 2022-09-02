@@ -23,7 +23,7 @@ const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
   const formattedDate = new Date(date).toDateString();
   return (
     <div className='container-lg-62rem mx-auto px-8 md:px-0'>
-      <main className='py-24'>
+      <main className='py-20'>
         <section className='mx-auto max-w-[65ch]'>
           <div className='mb-20 pb-4 border-b-2'>
             {series === null || (
