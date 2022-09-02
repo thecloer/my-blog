@@ -27,7 +27,10 @@ module.exports = {
               backgroundColor: theme('colors.slate.300'),
               padding: `${theme('spacing.[0.5]')} ${theme('spacing.1')}`,
             },
-            'code::before, code::after': {
+            'code::before': {
+              content: theme('content.none'),
+            },
+            'code::after': {
               content: theme('content.none'),
             },
           },
