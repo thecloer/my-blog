@@ -23,7 +23,7 @@ interface Params extends ParsedUrlQuery {
 const BlogTagNamePage: NextPage<Props> = ({ parsedcategory, parsedSlug, postInfos, uniqueSeries, uniqueTags }) => {
   return (
     <BlogLayout uniqueSeries={uniqueSeries} uniqueTags={uniqueTags}>
-      <h1 className='text-center mb-16 text-4xl font-semibold sm:mb-20 sm:text-5xl capitalize'>
+      <h1 className='text-center mb-16 text-4xl font-semibold sm:mb-20 capitalize'>
         {parsedcategory === 'tag' ? <span className='px-3 py-2 rounded-2xl bg-blue-300'>{releaseSlug(parsedSlug)}</span> : releaseSlug(parsedSlug)}
       </h1>
 
