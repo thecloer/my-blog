@@ -13,7 +13,8 @@ export type FrontMatter<T extends DataType> = {
       series: string | null;
     }
   : {
-      github: string;
+      githubRepoSlug: string;
+      npm?: boolean;
     });
 
 export type Info<T extends DataType> = {
