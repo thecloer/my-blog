@@ -1,5 +1,5 @@
 import type { InfoSortFunc } from '@/types/data';
-import { PAGINATION_LENGTH } from '@/config';
+import { MY_GITHUB_URL, PAGINATION_LENGTH } from '@/config';
 
 // common
 export const pageRange = (start: number, end: number) => {
@@ -14,8 +14,8 @@ export const pageRange = (start: number, end: number) => {
 export const generateSlug = (text: string) => encodeURIComponent(text.toLowerCase().replaceAll(' ', '-'));
 export const releaseSlug = (text: string) => decodeURIComponent(text).replaceAll('-', ' ');
 
-export const generateReadmeUrl = (repoSlug: string) => `https://raw.githubusercontent.com/cloer-Choi/${repoSlug}/main/README.md`;
-export const generateGithubUrl = (repoSlug: string) => `https://github.com/cloer-Choi/${repoSlug}`;
+export const generateReadmeUrl = (repoSlug: string) => `https://raw.githubusercontent.com/thecloer/${repoSlug}/main/README.md`;
+export const generateGithubUrl = (repoSlug: string) => `${MY_GITHUB_URL}/${repoSlug}`;
 export const generateNpmUrl = (repoSlug: string) => `https://www.npmjs.com/package/${repoSlug}`;
 
 // sort
