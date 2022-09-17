@@ -43,11 +43,6 @@ const BlogSlug: NextPage<Props> = ({ slug, content, frontMatter }) => {
 };
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  // const paths = Blog.instance.fileNames.map((fileName) => ({
-  //   params: {
-  //     slug: encodeURIComponent(fileName.replace('.md', '')),
-  //   },
-  // }));
   const paths = Blog.instance.getInfos().map(({ slug }) => ({ params: { slug } }));
 
   return {
@@ -57,7 +52,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({ params }) => {
-  const slug = decodeURIComponent(params!.slug);
+  const slug = params!.slug;
   const { content, frontMatter } = Blog.instance.getData(`${slug}.md`);
   return {
     props: {

@@ -11,8 +11,8 @@ export const pageRange = (start: number, end: number) => {
   }
   return numList;
 };
-export const generateSlug = (text: string) => encodeURIComponent(text.toLowerCase().replaceAll(' ', '-'));
-export const releaseSlug = (text: string) => decodeURIComponent(text).replaceAll('-', ' ');
+export const generateSlug = (text: string) => text.replaceAll(' ', '-');
+export const releaseSlug = (text: string) => text.replaceAll('-', ' ');
 
 export const generateReadmeUrl = (repoSlug: string) => `https://raw.githubusercontent.com/thecloer/${repoSlug}/main/README.md`;
 export const generateGithubUrl = (repoSlug: string) => `${MY_GITHUB_URL}/${repoSlug}`;

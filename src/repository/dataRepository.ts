@@ -2,7 +2,7 @@ import type { DataType, FrontMatter, InfoSortFunc } from '@/types/data';
 import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
-import { sortByDateDESC } from '@/utils';
+import { generateSlug, sortByDateDESC } from '@/utils';
 
 export abstract class DataRepository<T extends DataType> {
   protected readonly fileNames: string[];
@@ -22,7 +22,7 @@ export abstract class DataRepository<T extends DataType> {
 
   getInfos(sortFunction: InfoSortFunc = sortByDateDESC) {
     const posts = this.fileNames.map((fileName) => {
-      const slug = encodeURIComponent(fileName.replace('.md', ''));
+      const slug = generateSlug(fileName.replace('.md', ''));
       const { frontMatter } = this.getData(fileName);
       return { slug, frontMatter };
     });
