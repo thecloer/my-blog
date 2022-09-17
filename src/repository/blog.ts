@@ -30,7 +30,7 @@ export class Blog extends DataRepository<typeof DATA_SOURCE.blog> {
   search(query: string) {
     const infos = this.getInfos();
     const searchProperties = ['title', 'description'] as const;
-    const result = infos.filter(({ frontMatter }) => searchProperties.some((key) => frontMatter[key].toLowerCase().includes(query)));
+    const result = infos.filter(({ frontMatter }) => searchProperties.some((key) => frontMatter[key].toLowerCase().includes(query.toLocaleLowerCase())));
     return result;
   }
 }
